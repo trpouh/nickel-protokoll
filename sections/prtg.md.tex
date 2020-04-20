@@ -183,19 +183,21 @@ Um einen - meines Erachtens - recht außergewhönlichen Sensor zu
 testen/implementieren. Wurde auf dem Linux Server mittels Flask und
 Python eine REST-Api programmiert um den PRTG REST Sensor zu testen.
 
-\begin{lstlisting}[language=Python]
-from flask import Flask, jsonify
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ flask }\ImportTok{import}\NormalTok{ Flask, jsonify}
 
-app = Flask(__name__)
+\NormalTok{app }\OperatorTok{=}\NormalTok{ Flask(}\VariableTok{\_\_name\_\_}\NormalTok{)}
 
-@app.route("/")
-def hellOWorld():
-    return jsonify({"hallo" : "welt"})
+\AttributeTok{@app.route}\NormalTok{(}\StringTok{"/"}\NormalTok{)}
+\KeywordTok{def}\NormalTok{ hellOWorld():}
+    \ControlFlowTok{return}\NormalTok{ jsonify(\{}\StringTok{"hallo"}\NormalTok{ : }\StringTok{"welt"}\NormalTok{\})}
 
 
-if __name == 'main__':
-    app.run(host='192.168.10.3', port=8080)
-\end{lstlisting}
+\ControlFlowTok{if}\NormalTok{ \_\_name }\OperatorTok{==} \StringTok{\textquotesingle{}main\_\_\textquotesingle{}}\NormalTok{:}
+\NormalTok{    app.run(host}\OperatorTok{=}\StringTok{\textquotesingle{}192.168.10.3\textquotesingle{}}\NormalTok{, port}\OperatorTok{=}\DecValTok{8080}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 die mit REST API\(\footnote{noch in der BETA Version}\) Sensor überprüft
 werden kann. Untr dem Reiter \emph{Historische Daten} kann man die

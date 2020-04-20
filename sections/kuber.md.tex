@@ -61,21 +61,21 @@ werden soll, müssen sich folgende Eigenschaften unterscheiden:
 Eigenschaft & Befehl zum Prüfen\tabularnewline
 \midrule
 \endhead
-MAC Adresse & \passthrough{\lstinline!ip link!}\tabularnewline
+MAC Adresse & \texttt{ip\ link}\tabularnewline
 Produkt UUID &
-\passthrough{\lstinline!cat /sys/class/dmi/id product\_uuid!}\tabularnewline
+\texttt{cat\ /sys/class/dmi/id\ product\_uuid}\tabularnewline
 \bottomrule
 \end{longtable}
 
 Da wir für dieses Beispiel Debian 10 verwenden, müssen wir zusätzlich
 noch iptables in den legacy-mode schalten.
 
-\begin{lstlisting}
+\begin{verbatim}
 update-alternatives --set iptables /usr/sbin/iptables-legacy
 update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 update-alternatives --set arptables /usr/sbin/arptables-legacy
 update-alternatives --set ebtables /usr/sbin/ebtables-legacy
-\end{lstlisting}
+\end{verbatim}
 
 \hypertarget{installation-1}{%
 \section{Installation}\label{installation-1}}
@@ -87,39 +87,39 @@ Als Container Runtime benutzen wir für dieses Beispiel Docker.
 
 Zuerst müssen wir alle Dependencies von Docker installieren.
 
-\begin{lstlisting}
+\begin{verbatim}
 apt update
 apt -y install apt-transport-https ca-certificates curl gnupg2 software-properties-common
-\end{lstlisting}
+\end{verbatim}
 
 Anschließend fügen für den offiziellen GPG-Key von Docker zu unserem
 Package-Manager hinzu. Mit diesem Schlüssel sind die Packete signiert.
 
-\begin{lstlisting}
+\begin{verbatim}
 curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
-\end{lstlisting}
+\end{verbatim}
 
 Nun können wir die offiziellen Docker-Repositories hinzufügen.
 
-\begin{lstlisting}
+\begin{verbatim}
 add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
    $(lsb_release -cs) \
    stable"
-\end{lstlisting}
+\end{verbatim}
 
 Die Installation selbst ist nun ziemlich einfach.
 
-\begin{lstlisting}
+\begin{verbatim}
 apt-get update && apt-get install -y \
   containerd.io=1.2.10-3 \
   docker-ce=5:19.03.4~3-0~debian-$(lsb_release -cs) \
   docker-ce-cli=5:19.03.4~3-0~debian-$(lsb_release -cs)
-\end{lstlisting}
+\end{verbatim}
 
 Zu guter Letzt passen wir noch die Einstellungen für Docker an.
 
-\begin{lstlisting}
+\begin{verbatim}
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -132,21 +132,21 @@ cat > /etc/docker/daemon.json <<EOF
 EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
-\end{lstlisting}
+\end{verbatim}
 
 Einen kleinen Restart brauchen wir noch.
 
-\begin{lstlisting}
+\begin{verbatim}
 systemctl daemon-reload
 systemctl restart docker
-\end{lstlisting}
+\end{verbatim}
 
 Wie jeder gute IT-Admin werden verifizieren wir natürlich noch am Ende
 die gelungene Installation.
 
-\begin{lstlisting}
+\begin{verbatim}
 docker version
-\end{lstlisting}
+\end{verbatim}
 
 Falls hier vernünftige Informationen angezeigt werden und keine
 Fehlermeldung ist die Installation gelungen.
@@ -171,7 +171,7 @@ Dafür benutzen wir einen ähnlichen Ablauf, wie bei Docker. Der
 Einfachheit halber ist nun nicht jeder Schritt kommentiert, sondern ein
 fertiges Skript zu sehen.
 
-\begin{lstlisting}
+\begin{verbatim}
 apt-get update && sudo apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
@@ -180,15 +180,15 @@ EOF
 apt-get update
 apt-get install -y kubelet kubeadm kubectl
 apt-mark hold kubelet kubeadm kubectl
-\end{lstlisting}
+\end{verbatim}
 
 Auch hier folgt natürlich wieder die Verifikation.
 
-\begin{lstlisting}
+\begin{verbatim}
 kubeadm version
 kubelet --version
 kubectl version
-\end{lstlisting}
+\end{verbatim}
 
 \hypertarget{erstellung-eines-clusters}{%
 \section{Erstellung eines Clusters}\label{erstellung-eines-clusters}}
@@ -199,17 +199,17 @@ kubectl version
 Ein kleiner Schritt hält uns noch vom Cluster ab: Wir müssen swap
 abschalten.
 
-\begin{lstlisting}
+\begin{verbatim}
 swapoff -a
 cp /etc/fstab /etc/fstab.orig
 cat /etc/fstab.orig | grep -v 'swap' > /etc/fstab
-\end{lstlisting}
+\end{verbatim}
 
 Jetzt noch ein Reboot.
 
-\begin{lstlisting}
+\begin{verbatim}
 reboot 0
-\end{lstlisting}
+\end{verbatim}
 
 \hypertarget{kubeadm}{%
 \subsection{Kubeadm}\label{kubeadm}}
@@ -220,35 +220,34 @@ schlichtweg für das beliebteste Add-On entschieden haben: Flannel
 
 Auf unserem Master führen wir nun folgenden Befehl aus:
 
-\begin{lstlisting}
+\begin{verbatim}
 kubeadm init --pod-network-cidr=10.244.0.0/16
-\end{lstlisting}
+\end{verbatim}
 
 Mit den anderen Nodes können wir jetzt joinen. Den Befehl dafür finden
 wir im Output von kubeadm init am Master.
 
-\begin{lstlisting}
+\begin{verbatim}
 kubeadm join 10.0.0.88:6443 --token <token> \
     --discovery-token-ca-cert-hash sha256:<hash>
-\end{lstlisting}
+\end{verbatim}
 
 \hypertarget{troubleshooting}{%
 \section{Troubleshooting}\label{troubleshooting}}
 
-Bei der Verifizierung am Master mit
-\passthrough{\lstinline!kubectl get nodes!} kann es zu folgendem Fehler
-kommen:
+Bei der Verifizierung am Master mit \texttt{kubectl\ get\ nodes} kann es
+zu folgendem Fehler kommen:
 
-\begin{lstlisting}
+\begin{verbatim}
 The connection to the server localhost:8080 was refused - did you specify the right host or port?
-\end{lstlisting}
+\end{verbatim}
 
 Das lässt sich mit den folgenden Befehlen beheben. (Credits an den
 \href{https://github.com/kubernetes/kubernetes/issues/44665\#issuecomment-295216655}{GitHub
 post von user csarora})
 
-\begin{lstlisting}
+\begin{verbatim}
 cp /etc/kubernetes/admin.conf $HOME/
 chown $(id -u):$(id -g) $HOME/admin.conf
 export KUBECONFIG=$HOME/admin.conf
-\end{lstlisting}
+\end{verbatim}
