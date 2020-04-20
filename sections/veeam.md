@@ -60,7 +60,7 @@ VeeamZIP ist ein Feature, dass VM-Backups in Form von ZIP-Archiven erlaubt. Daf�
 
 # Restore von VeeamZIP
 
-Um eine VeeamZIP wiederherzustellen muss zunächst oben "Restore" geklickt und dann das VeeamZIP-Archiv ausgewählt werden. Anschließend kann man noch auswählen, wohin die Maschine exportiert werden soll, wie in Abbildung \ref{Veeam_restore} sehen kann.
+Um eine VeeamZIP wiederherzustellen muss zunächst oben "Restore" geklickt und dann das VeeamZIP-Archiv ausgewählt werden. Anschließend kann man noch auswählen, wohin die Maschine exportiert werden soll, wie in Abbildung \ref{Veeam-restore} sehen kann.
 
 \begin{figure}[!htb]
 \centering
