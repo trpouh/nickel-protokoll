@@ -1,0 +1,24 @@
+\babel@toc {ngerman}{}
+\contentsline {chapter}{\numberline {1}Containerorchestrierung mit Kubernetes}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Aufgabenstellung}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Kubernetes}{1}{subsection.1.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1.1}Aufbau und Architektur}{1}{subsubsection.1.1.1.1}%
+\contentsline {section}{\numberline {1.2}Installation}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Validierung bevor es losgeht}{3}{subsection.1.2.1}%
+\contentsline {section}{\numberline {1.3}Installation}{4}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Docker}{4}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Kubernetes}{5}{subsection.1.3.2}%
+\contentsline {section}{\numberline {1.4}Erstellung eines Clusters}{6}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Einstellungen}{6}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Kubeadm}{6}{subsection.1.4.2}%
+\contentsline {section}{\numberline {1.5}Troubleshooting}{7}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Netzwerküberwachung mit PRTG}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Installation \& Erste Schritte}{9}{section.2.1}%
+\contentsline {section}{\numberline {2.2}LAB: Überwachung von Linux und Windows Server}{10}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Topologie}{10}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Überwachung Linux Server}{10}{subsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2.1}Erster Sensor: Ping}{12}{subsubsection.2.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2.2}Apache Server überwachen}{12}{subsubsection.2.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.2.3}Erweiterte Sensoren}{13}{subsubsection.2.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.3}Überwachung Windows Server}{15}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Lessons Learned}{17}{section.2.3}%
